@@ -11,19 +11,30 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Basic Commands
 
-```{r vector}
+```{r}
 x <- c(1, 3, 2, 5)
 x
-```
-```{r }
 
+x = c(1, 6, 2)
+y = c(1, 4, 3)
+x
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+length(x)
+length(y)
+x + y 
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+ls() function is used to check a list of all of the saved objects, such as data and functions.
+
+rm() function is used to remove objects
+```{r}
+ls()
+
+rm(x,y)
+ls()
+```
+Remove all objects at once:
+```{r}
+rm(list = ls())
+```
+
