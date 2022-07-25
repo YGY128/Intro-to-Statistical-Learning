@@ -1,0 +1,85 @@
+---
+title: "Lab 3_6"
+author: "Yan Guanyu"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Libraries
+
+library() function is used to load libraries, or groups of functions and datasets that are not included in the base R distribution
+
+```{r}
+library(MASS)
+library(ISLR2)
+```
+
+# Simple Linear Regression
+
+ISLR2 library contains the Boston data set. We will seek to predict medv using 12 predictors such as rm, and lstat.
+
+```{r}
+head(Boston)
+```
+
+Using lm(fucntion) to fit a simple linear regression model, with medv as the response and lstat as the predictor
+
+```{r}
+lm.fit <- lm(medv ~ lstat, data = Boston)
+attach(Boston)
+lm.fit
+summary(lm.fit)
+```
+
+We could use names() function in order to find out what other pieces of information are stored in lm.fit.
+
+```{r}
+names(lm.fit)
+coef(lm.fit)
+```
+
+In order to obtain a confidence interval for the coefficient estimates, we can use the confint() command.
+
+```{r}
+confint(lm.fit)
+```
+
+predict() : prediction intervals
+
+```{r}
+predict(lm.fit, data.frame(lstat = (c(5, 10, 15))), interval = "confidence")
+predict(lm.fit, data.frame(lstat = (c(5, 10, 15))), interval = "prediction")
+```
+
+plot medv and lstat along with the least squares regression line using plot() and abline()
+
+```{r}
+plot(lstat, medv)
+abline(lm.fit, lwd = 3, col = "red")
+plot(lstat, medv, col = "red")
+plot(lstat, medv, pch = 20)
+plot(lstat, medv, pch = "+")
+plot(1:20, 1:20, pch = 1:20)
+
+
+```
+
+```{r}
+par(mfrow = c(2, 2))
+plot(lm.fit)
+plot(predict(lm.fit), residuals(lm.fit))
+plot(predict(lm.fit), rstudent(lm.fit))
+plot(hatvalues(lm.fit))  ## Leverage statistics
+which.max(hatvalues(lm.fit)) 
+```
+
+# Multiple Linear Regression
+
+```{r}
+lm.fit <- lm(medv ~ lstat + age, data = Boston)
+summary(lm.fit)
+```
